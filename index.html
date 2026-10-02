@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080b18">
+    <title>Hello World — 未來已啟動</title>
+    <style>
+        :root {
+            color-scheme: dark;
+            font-family: Inter, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+            --cyan: #73f5ff;
+            --purple: #b58cff;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            color: #f6f7ff;
+            background:
+                radial-gradient(ellipse at 18% 20%, #24204e 0, transparent 38%),
+                radial-gradient(ellipse at 85% 78%, #123c53 0, transparent 36%),
+                #080b18;
+        }
+
+        body::before {
+            position: fixed;
+            inset: 0;
+            content: "";
+            pointer-events: none;
+            opacity: .19;
+            background-image: linear-gradient(#8c9dc51a 1px, transparent 1px), linear-gradient(90deg, #8c9dc51a 1px, transparent 1px);
+            background-size: 48px 48px;
+            mask-image: linear-gradient(to bottom, black, transparent 90%);
+        }
+
+        .orb {
+            position: fixed;
+            width: 280px;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: .25;
+            pointer-events: none;
+            animation: drift 9s ease-in-out infinite alternate;
+        }
+        .orb.one { top: 8%; left: 8%; background: #795bff; }
+        .orb.two { right: 6%; bottom: 5%; background: #00d9ff; animation-delay: -4s; }
+
+        main {
+            position: relative;
+            width: min(680px, calc(100% - 36px));
+            padding: clamp(32px, 7vw, 68px);
+            text-align: center;
+            border: 1px solid #ffffff20;
+            border-radius: 28px;
+            background: linear-gradient(145deg, #ffffff11, #ffffff05);
+            box-shadow: 0 30px 100px #0008, inset 0 1px #ffffff20;
+            backdrop-filter: blur(18px);
+            animation: arrive .8s cubic-bezier(.2,.8,.2,1) both;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 8px 13px;
+            border: 1px solid #73f5ff40;
+            border-radius: 99px;
+            color: #b6faff;
+            background: #73f5ff0c;
+            font-size: 12px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+        }
+        .badge::before {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            content: "";
+            background: var(--cyan);
+            box-shadow: 0 0 12px var(--cyan);
+        }
+
+        h1 {
+            margin: 28px 0 12px;
+            font-size: clamp(48px, 10vw, 88px);
+            line-height: 1;
+            letter-spacing: -.065em;
+            background: linear-gradient(100deg, #fff 18%, var(--cyan) 55%, var(--purple) 90%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            filter: drop-shadow(0 0 28px #73f5ff30);
+        }
+
+        .subtitle {
+            margin: 0;
+            color: #b4bdd4;
+            font-size: clamp(15px, 2.5vw, 18px);
+            line-height: 1.8;
+        }
+        .subtitle strong { color: #e4e8f5; font-weight: 500; }
+
+        .divider {
+            width: 54px;
+            height: 2px;
+            margin: 30px auto 24px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+        }
+
+        button {
+            padding: 13px 22px;
+            border: 1px solid #ffffff30;
+            border-radius: 12px;
+            color: #f8fcff;
+            background: #ffffff0d;
+            font: inherit;
+            font-size: 14px;
+            cursor: pointer;
+            transition: transform .2s, border-color .2s, background .2s, box-shadow .2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            border-color: #73f5ff90;
+            background: #73f5ff15;
+            box-shadow: 0 8px 28px #73f5ff20;
+        }
+        button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
+
+        footer {
+            position: fixed;
+            bottom: 22px;
+            color: #77819a;
+            font-size: 12px;
+            letter-spacing: .12em;
+        }
+
+        @keyframes arrive {
+            from { opacity: 0; transform: translateY(18px) scale(.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes drift {
+            to { transform: translate(35px, -24px) scale(1.12); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="orb one" aria-hidden="true"></div>
+    <div class="orb two" aria-hidden="true"></div>
+    <main>
+        <span class="badge">SYSTEM ONLINE</span>
+        <h1>Hello World<span aria-hidden="true">!</span></h1>
+        <p class="subtitle">新的想法，從這裡開始。<br><strong>你的下一個精彩作品，正在載入中。</strong></p>
+        <div class="divider" aria-hidden="true"></div>
+        <button type="button" id="launch-button">啟動靈感 ↗</button>
+    </main>
+    <footer>DESIGNED FOR WHAT'S NEXT&nbsp; ✦ &nbsp;2026</footer>
+    <script>
+        const button = document.querySelector("#launch-button");
+        button.addEventListener("click", () => {
+            button.textContent = "靈感已啟動 ✨";
+            button.setAttribute("aria-live", "polite");
+        });
+    </script>
+</body>
+</html>
