@@ -375,7 +375,10 @@ async function setupAI() {
       provider: new appCheckSdk.ReCaptchaEnterpriseProvider(RECAPTCHA_ENTERPRISE_SITE_KEY.trim()),
       isTokenAutoRefreshEnabled: true
     });
-    const ai = aiSdk.getAI(app, { backend: new aiSdk.GoogleAIBackend() });
+    const ai = aiSdk.getAI(app, {
+      backend: new aiSdk.GoogleAIBackend(),
+      useLimitedUseAppCheckTokens: true
+    });
     aiModel = aiSdk.getGenerativeModel(ai, { model: AI_MODEL_NAME });
     aiSetupMessage = "";
   } catch (error) {
