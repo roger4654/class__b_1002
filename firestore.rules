@@ -1,0 +1,42 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function ownsData(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    function validDate(value) {
+      return value is string && value.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$');
+    }
+
+    function validItem(itemId) {
+      let data = request.resource.data;
+      return data.keys().hasOnly([
+          'id', 'title', 'type', 'date', 'time', 'duration', 'due', 'color', 'done'
+        ])
+        && data.keys().hasAll([
+          'id', 'title', 'type', 'date', 'time', 'duration', 'color', 'done'
+        ])
+        && data.id == itemId
+        && data.title is string
+        && data.title.size() > 0
+        && data.title.size() <= 80
+        && data.type in ['task', 'event']
+        && validDate(data.date)
+        && data.time is string
+        && data.time.matches('^([01][0-9]|2[0-3]):[0-5][0-9]$')
+        && data.duration is int
+        && data.duration >= 5
+        && data.duration <= 1440
+        && data.color in ['purple', 'teal', 'amber', 'red']
+        && data.done is bool
+        && (!('due' in data) || data.due == '' || validDate(data.due));
+    }
+
+    match /users/{uid}/items/{itemId} {
+      allow read, delete: if ownsData(uid);
+      allow create, update: if ownsData(uid) && validItem(itemId);
+    }
+  }
+}

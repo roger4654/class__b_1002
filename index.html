@@ -10,6 +10,8 @@
 @media(max-width:1050px){.app{grid-template-columns:210px 1fr}.main{padding:28px 26px}.content-grid{grid-template-columns:minmax(360px,1.3fr) minmax(260px,.8fr)}.sidebar{padding-inline:14px}}
 @media(max-width:760px){.app{display:block}.sidebar{display:none}.main{padding:17px 15px 90px}.topbar{margin-bottom:20px}.mobile-brand{display:flex;align-items:center;gap:8px;font-weight:750}.mobile-brand .brand-mark{width:29px;height:29px;border-radius:9px;font-size:13px}.mobile-menu{display:inline-grid;place-items:center;width:37px;height:37px;border:1px solid var(--line);background:white;border-radius:11px;margin-right:9px;color:#646c81}.top-actions{gap:8px}.top-actions .primary{display:none}.icon-button{width:36px;height:36px}.breadcrumb{display:none}.heading-row{align-items:flex-start;flex-direction:column;gap:14px;margin-bottom:18px}.heading-row h1{font-size:25px}.date-nav{width:100%;justify-content:flex-end}.stats{gap:8px;margin-bottom:13px}.stat{padding:12px 10px;border-radius:12px}.stat-top{font-size:10px}.stat-num{font-size:19px}.stat-num em{font-size:10px}.stat-icon{font-size:14px}.alert-strip{padding:11px 12px;margin-bottom:15px}.alert-copy{font-size:12px}.content-grid{grid-template-columns:1fr;gap:14px}.panel{border-radius:15px}.panel-head{padding:15px 15px 12px}.day-timeline{padding:8px 12px 14px;max-height:400px}.time-row{grid-template-columns:49px 1fr;min-height:59px}.now-badge{left:-49px}.task-list{padding-inline:14px}.week-bars{padding-inline:12px;gap:4px}.mobile-bottom{position:fixed;z-index:5;bottom:0;left:0;right:0;background:#ffffffed;backdrop-filter:blur(12px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);padding:8px 12px calc(8px + env(safe-area-inset-bottom))}.mobile-bottom button{border:0;background:none;color:#9299aa;font-size:10px;display:grid;gap:3px;justify-items:center}.mobile-bottom button span{font-size:17px}.mobile-bottom button.active{color:var(--purple)}.toast{right:14px;bottom:80px}.modal{padding:18px}.form-grid{gap:11px}.topbar{gap:10px}.top-actions{min-width:0;flex-wrap:wrap;justify-content:flex-end}.auth-identity{max-width:110px}.auth-profile>img{width:30px;height:30px}.auth-login{padding:7px 9px;font-size:11px}}
 @media(max-width:390px){.stat-num{font-size:17px}.stat{padding:11px 8px}.date-nav{gap:5px}.date-nav button{padding:7px 9px}.event{padding:7px}.event-time{font-size:9px}}
+.sync-status{display:inline-flex;align-items:center;gap:6px;padding:6px 9px;border-radius:999px;background:#f1f3f8;color:#727b90;font-size:10px;white-space:nowrap}.sync-status:before{content:"";width:7px;height:7px;border-radius:50%;background:#9aa2b2}.sync-status[data-state="syncing"]:before{background:#e5a73d}.sync-status[data-state="synced"]:before{background:#36a184}.sync-status[data-state="error"]:before{background:#d96571}.ai-toggle{position:fixed;right:24px;bottom:22px;z-index:8;border:0;border-radius:999px;background:#6558db;color:#fff;padding:13px 17px;font-weight:700;box-shadow:0 10px 28px #37306435}.ai-toggle:hover{background:#5448cc}.ai-panel{position:fixed;right:24px;bottom:82px;z-index:9;width:min(390px,calc(100vw - 32px));height:min(610px,calc(100dvh - 112px));min-height:380px;background:white;border:1px solid #eceef5;border-radius:18px;box-shadow:0 20px 60px #171a2c30;display:flex;flex-direction:column;overflow:hidden}.ai-panel[hidden]{display:none}.ai-head{display:flex;align-items:center;justify-content:space-between;padding:16px 17px;border-bottom:1px solid var(--line)}.ai-head strong{display:block;font-size:14px}.ai-head small{display:block;color:var(--muted);font-size:11px;margin-top:2px}.ai-close{border:0;border-radius:8px;background:#f4f5f8;color:#697188;width:30px;height:30px}.ai-note{padding:9px 13px;background:#f8f7ff;color:#77718f;font-size:10px;line-height:1.45}.ai-messages{flex:1;overflow-y:auto;padding:13px;display:flex;flex-direction:column;gap:10px;background:#fcfcfe}.ai-message{max-width:90%;padding:10px 12px;border-radius:13px;font-size:12px;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere}.ai-message.assistant{align-self:flex-start;background:#f0eff8;color:#35334a;border-bottom-left-radius:4px}.ai-message.user{align-self:flex-end;background:#6558db;color:#fff;border-bottom-right-radius:4px}.ai-message.loading{opacity:.65}.ai-suggestions{display:flex;gap:7px;overflow-x:auto;padding:8px 11px 2px}.ai-suggestions button{flex:0 0 auto;border:1px solid #ebe9f7;border-radius:999px;background:#fff;color:#6b628e;padding:6px 9px;font-size:10px}.ai-composer{display:flex;gap:8px;padding:10px 11px 12px;border-top:1px solid var(--line)}.ai-composer input{min-width:0;flex:1;border:1px solid #e4e6ee;border-radius:10px;padding:10px 11px;font-size:12px;outline:none}.ai-composer input:focus{border-color:#9a91ef;box-shadow:0 0 0 3px #6558db16}.ai-composer button{border:0;border-radius:10px;background:#6558db;color:white;padding:0 13px;font-size:12px;font-weight:650}.ai-composer button:disabled{opacity:.45;cursor:not-allowed}
+@media(max-width:760px){.sync-status{font-size:9px;padding:5px 7px}.ai-toggle{right:13px;bottom:calc(76px + env(safe-area-inset-bottom));padding:11px 14px}.ai-panel{right:10px;bottom:calc(130px + env(safe-area-inset-bottom));width:calc(100vw - 20px);height:min(72dvh,600px);min-height:340px}}
 </style>
 </head>
 <body>
@@ -23,7 +25,7 @@
   <div class="profile"><img class="avatar" id="sidebarAuthPhoto" alt="" referrerpolicy="no-referrer"><div><strong id="sidebarAuthName">我的工作區</strong><small id="sidebarAuthEmail">個人行程</small></div></div>
 </aside>
 <main class="main">
-  <header class="topbar"><div style="display:flex;align-items:center"><button class="mobile-menu" aria-label="選單">☰</button><div class="mobile-brand"><span class="brand-mark">d</span> daywell</div><div class="breadcrumb">工作空間　/　<b>每日總覽</b></div></div><div class="top-actions"><span class="auth-profile" id="authProfile" hidden><img id="authPhoto" alt="" referrerpolicy="no-referrer"><span class="auth-identity"><strong id="authName"></strong><small id="authEmail"></small></span><button class="secondary auth-signout" id="signOutBtn" type="button">登出</button></span><button class="secondary auth-login" id="signInBtn" type="button" disabled><span aria-hidden="true" class="google-g">G</span>使用 Google 登入</button><button class="icon-button" id="notifyBtn" title="啟用瀏覽器通知" aria-label="通知">♧<span class="bell-dot"></span></button><button class="primary" id="addTop">＋ 新增行程 / 任務</button></div></header>
+  <header class="topbar"><div style="display:flex;align-items:center"><button class="mobile-menu" aria-label="選單">☰</button><div class="mobile-brand"><span class="brand-mark">d</span> daywell</div><div class="breadcrumb">工作空間　/　<b>每日總覽</b></div></div><div class="top-actions"><span class="sync-status" id="syncStatus" data-state="local">本機資料</span><span class="auth-profile" id="authProfile" hidden><img id="authPhoto" alt="" referrerpolicy="no-referrer"><span class="auth-identity"><strong id="authName"></strong><small id="authEmail"></small></span><button class="secondary auth-signout" id="signOutBtn" type="button">登出</button></span><button class="secondary auth-login" id="signInBtn" type="button" disabled><span aria-hidden="true" class="google-g">G</span>使用 Google 登入</button><button class="icon-button" id="notifyBtn" title="啟用瀏覽器通知" aria-label="通知">♧<span class="bell-dot"></span></button><button class="primary" id="addTop">＋ 新增行程 / 任務</button></div></header>
   <section class="heading-row"><div><h1>每日總覽</h1><div class="date-line" id="dateLine"></div></div><div class="date-nav"><button id="prevDay" aria-label="前一天">‹</button><button class="today-btn" id="goToday">今天</button><button id="nextDay" aria-label="後一天">›</button><button id="addMobile" class="primary" style="padding:8px 12px">＋ 新增</button></div></section>
   <section class="stats"><div class="stat"><div class="stat-top"><span>今日行程</span><span class="stat-icon">◷</span></div><div class="stat-num" id="statEvents">0<em>個安排</em></div></div><div class="stat"><div class="stat-top"><span>待完成任務</span><span class="stat-icon">▢</span></div><div class="stat-num" id="statTasks">0<em>項待辦</em></div></div><div class="stat"><div class="stat-top"><span>今日完成</span><span class="stat-icon">✦</span></div><div class="stat-num" id="statDone">0<em>項完成</em></div></div></section>
   <div class="alert-strip" id="alertStrip"><div class="alert-icon">⚑</div><div class="alert-copy" id="alertCopy"></div><button id="alertAction">查看任務 →</button></div>
@@ -32,7 +34,16 @@
 </main>
 </div>
 <nav class="mobile-bottom"><button class="active"><span>◷</span>今天</button><button><span>▦</span>行事曆</button><button id="mobileAllTasks"><span>✓</span>任務</button><button id="mobileNotification"><span>♧</span>提醒</button></nav>
-<div class="modal-backdrop" id="modalBackdrop"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-head"><h2 id="modalTitle">新增行程 / 任務</h2><button class="close" id="closeModal" aria-label="關閉">×</button></div><form id="itemForm"><div class="form-grid"><div class="field full"><label for="itemTitle">名稱</label><input id="itemTitle" required maxlength="80" placeholder="例如：準備週會簡報" /></div><div class="field"><label for="itemType">類型</label><select id="itemType"><option value="task">任務</option><option value="event">行程</option></select></div><div class="field"><label for="itemDate">日期</label><input id="itemDate" type="date" required /></div><div class="field"><label for="itemTime">開始時間</label><input id="itemTime" type="time" value="09:00" required /></div><div class="field"><label for="itemDuration">預估時間（分鐘）</label><input id="itemDuration" type="number" min="5" step="5" value="60" required /></div><div class="field full" id="dueField"><label for="itemDue">任務期限（可選）</label><input id="itemDue" type="date" /></div><div class="field full"><label for="itemColor">分類色彩</label><select id="itemColor"><option value="purple">工作・紫色</option><option value="teal">生活・綠色</option><option value="amber">個人・橘色</option></select></div></div><div class="modal-actions"><button class="secondary" type="button" id="cancelModal">取消</button><button class="primary" type="submit">儲存</button></div></form></div></div><div class="toast" id="toast"></div>
+<div class="modal-backdrop" id="modalBackdrop"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-head"><h2 id="modalTitle">新增行程 / 任務</h2><button class="close" id="closeModal" aria-label="關閉">×</button></div><form id="itemForm"><div class="form-grid"><div class="field full"><label for="itemTitle">名稱</label><input id="itemTitle" required maxlength="80" placeholder="例如：準備週會簡報" /></div><div class="field"><label for="itemType">類型</label><select id="itemType"><option value="task">任務</option><option value="event">行程</option></select></div><div class="field"><label for="itemDate">日期</label><input id="itemDate" type="date" required /></div><div class="field"><label for="itemTime">開始時間</label><input id="itemTime" type="time" value="09:00" required /></div><div class="field"><label for="itemDuration">預估時間（分鐘）</label><input id="itemDuration" type="number" min="5" max="1440" step="5" value="60" required /></div><div class="field full" id="dueField"><label for="itemDue">任務期限（可選）</label><input id="itemDue" type="date" /></div><div class="field full"><label for="itemColor">分類色彩</label><select id="itemColor"><option value="purple">工作・紫色</option><option value="teal">生活・綠色</option><option value="amber">個人・橘色</option></select></div></div><div class="modal-actions"><button class="secondary" type="button" id="cancelModal">取消</button><button class="primary" type="submit">儲存</button></div></form></div></div>
+<button class="ai-toggle" id="aiToggle" type="button" aria-expanded="false" aria-controls="aiPanel">✦ AI 行程助理</button>
+<section class="ai-panel" id="aiPanel" aria-label="AI 行程助理" hidden>
+  <div class="ai-head"><div><strong>AI 行程助理</strong><small>幫你整理每日安排與期限</small></div><button class="ai-close" id="aiClose" type="button" aria-label="關閉 AI 助理">×</button></div>
+  <div class="ai-note">送出時會將你的問題與行程摘要傳送至 Firebase AI Logic / Gemini。請勿輸入密碼或機密資料。</div>
+  <div class="ai-messages" id="aiMessages" role="log" aria-live="polite"></div>
+  <div class="ai-suggestions"><button type="button" data-ai-prompt="今天有哪些行程和待辦？">今天有哪些安排？</button><button type="button" data-ai-prompt="哪些任務已逾期或即將到期？">最近到期任務</button></div>
+  <form class="ai-composer" id="aiForm"><input id="aiInput" maxlength="500" autocomplete="off" placeholder="問問你的行程…" aria-label="輸入給 AI 助理的問題"><button id="aiSend" type="submit" disabled>送出</button></form>
+</section>
+<div class="toast" id="toast"></div>
 <script>
 (()=>{'use strict';
 const KEY='daywell-items-v1', REMIND_KEY='daywell-reminded-v1';
@@ -52,9 +63,12 @@ const defaultItems=[
 {id:'t5',title:'更新作品集內容',type:'task',date:iso(shift(today,2)),time:'15:00',duration:90,due:iso(shift(today,4)),color:'purple',done:false},
 {id:'t6',title:'繳交報帳資料',type:'task',date:iso(shift(today,-1)),time:'10:00',duration:30,due:iso(shift(today,-2)),color:'red',done:false},
 ];
-let items;try{const stored=JSON.parse(localStorage.getItem(KEY));items=Array.isArray(stored)?stored:defaultItems}catch{items=defaultItems}
+const copyItems=value=>JSON.parse(JSON.stringify(value));
+const readStoredItems=key=>{try{const stored=JSON.parse(localStorage.getItem(key));return Array.isArray(stored)?stored:null}catch{return null}};
+let items=readStoredItems(KEY)||defaultItems, activeStorageKey=KEY;
 let selected=new Date(today), miniMonth=new Date(today.getFullYear(),today.getMonth(),1);
-const $=id=>document.getElementById(id), save=()=>localStorage.setItem(KEY,JSON.stringify(items));
+const $=id=>document.getElementById(id);
+const save=()=>{try{localStorage.setItem(activeStorageKey,JSON.stringify(items))}catch(error){console.warn('Local schedule backup failed:',error)}window.dispatchEvent(new CustomEvent('daywell:items-changed',{detail:{items:copyItems(items)}}))};
 function daysBetween(a,b){return Math.round((parse(b)-parse(a))/86400000)}
 function dueClass(i){if(!i.due)return 'future';const diff=daysBetween(iso(today),i.due);return diff<0?'':' '+(diff<=1?'soon':'future')}
 function dueText(i){if(!i.due)return '無期限';const diff=daysBetween(iso(today),i.due);return diff<0?`逾期 ${-diff} 天`:`${diff===0?'今天到期':diff===1?'明天到期':`${diff} 天後到期`}`}
@@ -69,6 +83,7 @@ function renderAll(){renderTimeline();renderTasks();renderAlerts();renderStats()
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function toggle(id){items=items.map(i=>i.id===id?{...i,done:!i.done}:i);save();renderAll();toast('已更新任務狀態')}
 let toastTimer;function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2600)}window.daywellToast=toast;
+window.daywellData={getItems:()=>copyItems(items),setOwner(uid){activeStorageKey=uid?`${KEY}:user:${uid}`:KEY;const stored=readStoredItems(activeStorageKey);if(stored)items=stored;else if(!uid)items=copyItems(defaultItems);renderAll();return copyItems(items)},setItems(next,uid){activeStorageKey=uid?`${KEY}:user:${uid}`:KEY;items=Array.isArray(next)?copyItems(next):[];try{localStorage.setItem(activeStorageKey,JSON.stringify(items))}catch(error){console.warn('Local schedule backup failed:',error)}renderAll()}};
 function openModal(type='task'){ $('itemType').value=type;$('itemDate').value=iso(selected);$('itemDue').value=type==='task'?iso(selected):'';$('dueField').style.display=type==='task'?'grid':'none';$('modalBackdrop').classList.add('open');setTimeout(()=>$('itemTitle').focus(),30)}function closeModal(){$('modalBackdrop').classList.remove('open')}
 $('itemType').onchange=e=>{$('dueField').style.display=e.target.value==='task'?'grid':'none'};
 $('itemForm').onsubmit=e=>{e.preventDefault();const type=$('itemType').value;const item={id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),title:$('itemTitle').value.trim(),type,date:$('itemDate').value,time:$('itemTime').value,duration:Number($('itemDuration').value),due:type==='task'?$('itemDue').value:'',color:$('itemColor').value,done:false};if(!item.title)return;items.push(item);selected=parse(item.date);miniMonth=new Date(selected.getFullYear(),selected.getMonth(),1);save();closeModal();e.target.reset();$('itemTime').value='09:00';$('itemDuration').value='60';renderDate();toast('已新增並儲存')};
@@ -80,88 +95,7 @@ renderDate();checkReminders();setInterval(()=>checkReminders(),60000);
 
 })();
 </script>
-<script type="module">
-(async()=>{
-  const signInButton=document.getElementById('signInBtn');
-  const signOutButton=document.getElementById('signOutBtn');
-  const toast=message=>window.daywellToast?.(message);
-  signInButton.disabled=true;
-  try{
-    const [appSdk,authSdk]=await Promise.all([
-      import("https://www.gstatic.com/firebasejs/13.3.0/firebase-app.js"),
-      import("https://www.gstatic.com/firebasejs/13.3.0/firebase-auth.js")
-    ]);
-    const firebaseConfig={
-      apiKey:"AIzaSyAv3tYdGtJsnbIKxqZ-MtaUphqiG8URAjg",
-      authDomain:"my-web-app-b1606.firebaseapp.com",
-      projectId:"my-web-app-b1606",
-      storageBucket:"my-web-app-b1606.firebasestorage.app",
-      messagingSenderId:"735406671962",
-      appId:"1:735406671962:web:802aeb79b452dd4c52b063"
-    };
-    const firebaseApp=appSdk.initializeApp(firebaseConfig);
-    const auth=authSdk.getAuth(firebaseApp);
-    const googleProvider=new authSdk.GoogleAuthProvider();
-    await authSdk.setPersistence(auth,authSdk.browserLocalPersistence);
-
-    const authProfile=document.getElementById('authProfile');
-    const authPhoto=document.getElementById('authPhoto');
-    const authName=document.getElementById('authName');
-    const authEmail=document.getElementById('authEmail');
-    const sidebarPhoto=document.getElementById('sidebarAuthPhoto');
-    const sidebarName=document.getElementById('sidebarAuthName');
-    const sidebarEmail=document.getElementById('sidebarAuthEmail');
-    const fallbackAvatar='data:image/svg+xml;charset=UTF-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><rect width="64" height="64" rx="32" fill="#f8e4d7"/><text x="50%" y="54%" text-anchor="middle" dominant-baseline="middle" font-size="30">🌿</text></svg>');
-    function applyUser(user){
-      const loggedIn=Boolean(user);
-      authProfile.hidden=!loggedIn;
-      signInButton.hidden=loggedIn;
-      if(!loggedIn){
-        authName.textContent='';authEmail.textContent='';authPhoto.removeAttribute('src');
-        sidebarPhoto.src=fallbackAvatar;sidebarName.textContent='我的工作區';sidebarEmail.textContent='個人行程';
-        return;
-      }
-      const name=user.displayName||'Google 使用者';
-      const email=user.email||'';
-      const photo=user.photoURL||fallbackAvatar;
-      authName.textContent=name;authEmail.textContent=email;sidebarName.textContent=name;sidebarEmail.textContent=email;
-      for(const image of [authPhoto,sidebarPhoto]){
-        image.onerror=()=>{image.onerror=null;image.src=fallbackAvatar};
-        image.src=photo;
-      }
-    }
-    authSdk.onAuthStateChanged(auth,applyUser,error=>{
-      console.error('Firebase auth state listener failed:',error);
-      toast('無法讀取登入狀態，請重新整理頁面');
-    });
-    signInButton.addEventListener('click',async()=>{
-      signInButton.disabled=true;
-      try{
-        await authSdk.signInWithPopup(auth,googleProvider);
-        toast('Google 登入成功');
-      }catch(error){
-        if(error.code==='auth/popup-closed-by-user')toast('已取消 Google 登入');
-        else if(error.code==='auth/popup-blocked')toast('登入視窗遭封鎖，請允許此網站開啟彈出式視窗');
-        else if(error.code==='auth/cancelled-popup-request')toast('登入視窗已取消');
-        else{
-          console.error('Google sign-in failed:',error);
-          toast(error.code==='auth/unauthorized-domain'?'此網域尚未加入 Firebase 授權網域':`登入失敗${error.code?`（${error.code}）`:''}，請稍後再試`);
-        }
-      }finally{signInButton.disabled=false}
-    });
-    signOutButton.addEventListener('click',async()=>{
-      signOutButton.disabled=true;
-      try{await authSdk.signOut(auth);toast('已登出')}
-      catch(error){console.error('Sign-out failed:',error);toast('登出失敗，請稍後再試')}
-      finally{signOutButton.disabled=false}
-    });
-    signInButton.disabled=false;
-  }catch(error){
-    console.error('Firebase Authentication could not initialize:',error);
-    toast('登入服務目前無法載入；行程功能仍可繼續使用');
-  }
-})();
-</script>
+<script type="module" src="./firebase-app.js"></script>
 </body>
 </html>
 
