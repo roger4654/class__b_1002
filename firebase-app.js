@@ -392,7 +392,7 @@ async function setupAI() {
 
 function isTemporaryAIModelFailure(error) {
   const text = `${error?.code || ""} ${error?.message || ""}`.toLowerCase();
-  return /high demand|overloaded|temporarily unavailable|please try again later|(^|\D)(500|502|503|504)(\D|$)/.test(text);
+  return /high demand|overloaded|temporarily unavailable|please try again later|timeout|timed out|aborterror|deadline.?exceeded|(^|\D)(500|502|503|504)(\D|$)/.test(text);
 }
 
 function describeAIRequestError(error) {
@@ -407,8 +407,8 @@ function describeAIRequestError(error) {
   if (/resource.?exhausted|quota|rate.?limit|429/.test(text)) {
     return `AI 服務目前超過使用額度或請求頻率限制，請稍後再試。錯誤碼：${code}${diagnostic}`;
   }
-  if (/high demand|overloaded|temporarily unavailable|please try again later|(^|\D)(500|502|503|504)(\D|$)/.test(text)) {
-    return `AI 服務目前繁忙，主要模型與備援模型都暫時無法回覆，請稍後再試。錯誤碼：${code}${diagnostic}`;
+  if (/high demand|overloaded|temporarily unavailable|please try again later|timeout|timed out|aborterror|deadline.?exceeded|(^|\D)(500|502|503|504)(\D|$)/.test(text)) {
+    return `AI 請求逾時或服務繁忙，備援模型也暫時無法回覆，請稍後再試。錯誤碼：${code}${diagnostic}`;
   }
   if (/model.*(not found|unsupported|invalid)|not found|404/.test(text)) {
     return `AI 模型目前不可用，請確認 Firebase AI Logic 支援的模型設定。錯誤碼：${code}${diagnostic}`;
