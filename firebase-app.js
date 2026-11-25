@@ -387,6 +387,27 @@ async function setupAI() {
   }
 }
 
+function describeAIRequestError(error) {
+  const code = String(error?.code || "unknown").slice(0, 80);
+  const detail = String(error?.message || "").replace(/\s+/g, " ").trim().slice(0, 220);
+  const diagnostic = detail ? `\nFirebase 診斷：${detail}` : "";
+  const text = `${code} ${detail}`.toLowerCase();
+
+  if (/app.?check|recaptcha|attestation|must enforce|deactivated/.test(text)) {
+    return `AI 請求被 App Check 擋下。請確認 Site Key 對應這個 Web App，並允許目前網站網域。錯誤碼：${code}${diagnostic}`;
+  }
+  if (/resource.?exhausted|quota|rate.?limit|429/.test(text)) {
+    return `AI 服務目前超過使用額度或請求頻率限制，請稍後再試。錯誤碼：${code}${diagnostic}`;
+  }
+  if (/model.*(not found|unsupported|invalid)|not found|404/.test(text)) {
+    return `AI 模型目前不可用，請確認 Firebase AI Logic 支援的模型設定。錯誤碼：${code}${diagnostic}`;
+  }
+  if (/api.*(disabled|not enabled|not been used)|permission.?denied|403/.test(text)) {
+    return `Firebase 拒絕了 AI 請求。請確認 Firebase Console 已啟用 Firebase AI Logic，且 App Check 驗證有效。錯誤碼：${code}${diagnostic}`;
+  }
+  return `AI 暫時無法回覆。請把錯誤碼與診斷內容截圖傳給我。錯誤碼：${code}${diagnostic}`;
+}
+
 function localDateString(date = new Date()) {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
 }
@@ -564,7 +585,7 @@ $("aiForm").addEventListener("submit", async event => {
     renderAIMarkdown(loading, result.response.text() || "目前沒有可用的回覆，請換個方式提問。");
   } catch (error) {
     console.error("Firebase AI Logic request failed:", error);
-    loading.textContent = "AI 暫時無法回覆。請確認 Firebase AI Logic 已啟用、App Check 網域與金鑰正確，或稍後再試。";
+    loading.textContent = describeAIRequestError(error);
   } finally {
     loading.classList.remove("loading");
     $("aiSend").disabled = !$("aiInput").value.trim();
