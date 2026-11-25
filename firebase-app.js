@@ -30,6 +30,7 @@ const firebaseConfig = {
 // Paste the public site key here. This key is not a secret.
 const RECAPTCHA_ENTERPRISE_SITE_KEY = "6LdO9C0uAAAAAAH3Rr1QbxvgWmcwmcuHsDzkGdF1";
 const AI_MODEL_NAME = "gemini-4-hydrogen";
+const AI_FALLBACK_MODEL_NAME = "gemini-3.8-flash";
 const USER_ITEMS_COLLECTION = "items";
 const MAX_BATCH_WRITES = 450;
 const cloudCacheKey = uid => `daywell-items-v1:cloud:${uid}`;
@@ -56,6 +57,7 @@ let syncTimer = null;
 let cloudItems = new Map();
 let syncQueue = Promise.resolve();
 let aiModel = null;
+let aiFallbackModel = null;
 let aiSetupMessage = "";
 let lastAIUid = null;
 
@@ -380,11 +382,17 @@ async function setupAI() {
       useLimitedUseAppCheckTokens: true
     });
     aiModel = aiSdk.getGenerativeModel(ai, { model: AI_MODEL_NAME });
+    aiFallbackModel = aiSdk.getGenerativeModel(ai, { model: AI_FALLBACK_MODEL_NAME });
     aiSetupMessage = "";
   } catch (error) {
     console.error("Firebase AI Logic could not initialize:", error);
     aiSetupMessage = "AI 助理初始化失敗，請確認 App Check 網站金鑰與 Firebase AI Logic 設定。";
   }
+}
+
+function isTemporaryAIModelFailure(error) {
+  const text = `${error?.code || ""} ${error?.message || ""}`.toLowerCase();
+  return /high demand|overloaded|temporarily unavailable|please try again later|(^|\D)(500|502|503|504)(\D|$)/.test(text);
 }
 
 function describeAIRequestError(error) {
@@ -398,6 +406,9 @@ function describeAIRequestError(error) {
   }
   if (/resource.?exhausted|quota|rate.?limit|429/.test(text)) {
     return `AI 服務目前超過使用額度或請求頻率限制，請稍後再試。錯誤碼：${code}${diagnostic}`;
+  }
+  if (/high demand|overloaded|temporarily unavailable|please try again later|(^|\D)(500|502|503|504)(\D|$)/.test(text)) {
+    return `AI 服務目前繁忙，主要模型與備援模型都暫時無法回覆，請稍後再試。錯誤碼：${code}${diagnostic}`;
   }
   if (/model.*(not found|unsupported|invalid)|not found|404/.test(text)) {
     return `AI 模型目前不可用，請確認 Firebase AI Logic 支援的模型設定。錯誤碼：${code}${diagnostic}`;
@@ -581,7 +592,15 @@ $("aiForm").addEventListener("submit", async event => {
       `相關行程與任務（JSON）：${JSON.stringify(context.items)}`,
       `使用者問題：${question}`
     ].join("\n\n");
-    const result = await aiModel.generateContent(prompt);
+    let result;
+    try {
+      result = await aiModel.generateContent(prompt);
+    } catch (error) {
+      if (!aiFallbackModel || !isTemporaryAIModelFailure(error)) throw error;
+      console.warn("Primary AI model is busy; retrying with the fallback model:", error);
+      loading.textContent = "主要 AI 模型目前繁忙，正在改用備援模型…";
+      result = await aiFallbackModel.generateContent(prompt);
+    }
     renderAIMarkdown(loading, result.response.text() || "目前沒有可用的回覆，請換個方式提問。");
   } catch (error) {
     console.error("Firebase AI Logic request failed:", error);
