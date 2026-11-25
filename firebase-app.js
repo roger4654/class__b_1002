@@ -413,10 +413,99 @@ function buildScheduleContext() {
   return { today, items: relevant };
 }
 
+function appendAIInlineMarkdown(parent, text) {
+  const tokenPattern = /\*\*([^*\n]+)\*\*|__([^_\n]+)__|`([^`\n]+)`|\*([^*\n]+)\*|_([^_\n]+)_/g;
+  let cursor = 0;
+
+  for (const match of text.matchAll(tokenPattern)) {
+    if (match.index > cursor) {
+      parent.append(document.createTextNode(text.slice(cursor, match.index)));
+    }
+
+    const [, boldA, boldB, code, italicA, italicB] = match;
+    const node = document.createElement(boldA || boldB ? "strong" : code ? "code" : "em");
+    node.textContent = boldA || boldB || code || italicA || italicB;
+    parent.append(node);
+    cursor = match.index + match[0].length;
+  }
+
+  if (cursor < text.length) {
+    parent.append(document.createTextNode(text.slice(cursor)));
+  }
+}
+
+function renderAIMarkdown(element, markdown) {
+  element.replaceChildren();
+  const lines = String(markdown).replace(/\r\n?/g, "\n").split("\n");
+  let paragraphLines = [];
+  let list = null;
+
+  const flushParagraph = () => {
+    if (!paragraphLines.length) return;
+    const paragraph = document.createElement("p");
+    paragraphLines.forEach((line, index) => {
+      if (index) paragraph.append(document.createElement("br"));
+      appendAIInlineMarkdown(paragraph, line);
+    });
+    element.append(paragraph);
+    paragraphLines = [];
+  };
+
+  const flushList = () => {
+    if (!list) return;
+    element.append(list);
+    list = null;
+  };
+
+  for (const line of lines) {
+    if (!line.trim()) {
+      flushParagraph();
+      flushList();
+      continue;
+    }
+
+    const unordered = line.match(/^\s*[-*+]\s+(.+)$/);
+    const ordered = line.match(/^\s*\d+[.)]\s+(.+)$/);
+    if (unordered || ordered) {
+      flushParagraph();
+      const tagName = unordered ? "ul" : "ol";
+      if (!list || list.tagName.toLowerCase() !== tagName) {
+        flushList();
+        list = document.createElement(tagName);
+      }
+      const item = document.createElement("li");
+      appendAIInlineMarkdown(item, (unordered || ordered)[1]);
+      list.append(item);
+      continue;
+    }
+
+    const boldHeading = line.match(/^\*\*(.+)\*\*$/);
+    const markdownHeading = line.match(/^#{1,3}\s+(.+)$/);
+    if (boldHeading || markdownHeading) {
+      flushParagraph();
+      flushList();
+      const heading = document.createElement("h4");
+      appendAIInlineMarkdown(heading, (boldHeading || markdownHeading)[1]);
+      element.append(heading);
+      continue;
+    }
+
+    flushList();
+    paragraphLines.push(line);
+  }
+
+  flushParagraph();
+  flushList();
+}
+
 function addAIMessage(role, text, extraClass = "") {
   const message = document.createElement("div");
   message.className = `ai-message ${role}${extraClass ? ` ${extraClass}` : ""}`;
-  message.textContent = text;
+  if (role === "assistant" && extraClass !== "loading") {
+    renderAIMarkdown(message, text);
+  } else {
+    message.textContent = text;
+  }
   $("aiMessages").append(message);
   $("aiMessages").scrollTop = $("aiMessages").scrollHeight;
   return message;
@@ -472,7 +561,7 @@ $("aiForm").addEventListener("submit", async event => {
       `使用者問題：${question}`
     ].join("\n\n");
     const result = await aiModel.generateContent(prompt);
-    loading.textContent = result.response.text() || "目前沒有可用的回覆，請換個方式提問。";
+    renderAIMarkdown(loading, result.response.text() || "目前沒有可用的回覆，請換個方式提問。");
   } catch (error) {
     console.error("Firebase AI Logic request failed:", error);
     loading.textContent = "AI 暫時無法回覆。請確認 Firebase AI Logic 已啟用、App Check 網域與金鑰正確，或稍後再試。";
