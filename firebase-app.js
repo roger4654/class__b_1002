@@ -29,7 +29,7 @@ const firebaseConfig = {
 // Firebase Console > App Check > Apps > Register web app > reCAPTCHA Enterprise.
 // Paste the public site key here. This key is not a secret.
 const RECAPTCHA_ENTERPRISE_SITE_KEY = "6LdO9C0uAAAAAAH3Rr1QbxvgWmcwmcuHsDzkGdF1";
-const AI_MODEL_NAME = "gemini-3.8-flash";
+const AI_MODEL_NAME = "gemini-4-hydrogen";
 const USER_ITEMS_COLLECTION = "items";
 const MAX_BATCH_WRITES = 450;
 const cloudCacheKey = uid => `daywell-items-v1:cloud:${uid}`;
@@ -375,8 +375,10 @@ async function setupAI() {
       provider: new appCheckSdk.ReCaptchaEnterpriseProvider(RECAPTCHA_ENTERPRISE_SITE_KEY.trim()),
       isTokenAutoRefreshEnabled: true
     });
-    // Baseline App Check enforcement accepts session tokens; limited-use tokens are needed only for replay protection.
-    const ai = aiSdk.getAI(app, { backend: new aiSdk.GoogleAIBackend() });
+    const ai = aiSdk.getAI(app, {
+      backend: new aiSdk.GoogleAIBackend(),
+      useLimitedUseAppCheckTokens: true
+    });
     aiModel = aiSdk.getGenerativeModel(ai, { model: AI_MODEL_NAME });
     aiSetupMessage = "";
   } catch (error) {
